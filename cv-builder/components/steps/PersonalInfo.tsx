@@ -2,7 +2,7 @@
 
 import { useCallback } from 'react';
 import { useDropzone } from 'react-dropzone';
-import { Camera, X, Upload } from 'lucide-react';
+import { Camera, X, Upload, User, Mail, Phone, MapPin, Calendar, Briefcase } from 'lucide-react';
 import Image from 'next/image';
 import { useCVContext } from '@/lib/context/CVContext';
 import { useLanguage } from '@/lib/context/LanguageContext';
@@ -83,89 +83,113 @@ export default function PersonalInfo() {
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <div className="space-y-2">
                     <label className="text-sm font-medium text-gray-700">{t.steps.personal.fullName}</label>
-                    <input
-                        type="text"
-                        value={personal.fullName}
-                        onChange={(e) => updatePersonal('fullName', e.target.value)}
-                        className="w-full px-4 py-3 rounded-xl border border-gray-200 focus:border-brand-lilac focus:ring-2 focus:ring-brand-lilac/20 outline-none transition-all"
-                        placeholder="e.g. John Doe"
-                    />
+                    <div className="relative">
+                        <User className="absolute left-3 top-1/2 transform -translate-y-1/2 w-5 h-5 text-gray-400" />
+                        <input
+                            type="text"
+                            value={personal.fullName}
+                            onChange={(e) => updatePersonal('fullName', e.target.value)}
+                            className="w-full pl-10 pr-4 py-3 rounded-xl border border-gray-200 focus:border-brand-lilac focus:ring-2 focus:ring-brand-lilac/20 outline-none transition-all text-black placeholder-gray-400"
+                            placeholder="e.g. John Doe"
+                        />
+                    </div>
                 </div>
 
                 <div className="space-y-2">
                     <label className="text-sm font-medium text-gray-700">{t.steps.personal.professionalTitle}</label>
-                    <input
-                        type="text"
-                        value={personal.title}
-                        onChange={(e) => updatePersonal('title', e.target.value)}
-                        className="w-full px-4 py-3 rounded-xl border border-gray-200 focus:border-brand-lilac focus:ring-2 focus:ring-brand-lilac/20 outline-none transition-all"
-                        placeholder="e.g. Software Engineer"
-                    />
+                    <div className="relative">
+                        <Briefcase className="absolute left-3 top-1/2 transform -translate-y-1/2 w-5 h-5 text-gray-400" />
+                        <input
+                            type="text"
+                            value={personal.title}
+                            onChange={(e) => updatePersonal('title', e.target.value)}
+                            className="w-full pl-10 pr-4 py-3 rounded-xl border border-gray-200 focus:border-brand-lilac focus:ring-2 focus:ring-brand-lilac/20 outline-none transition-all text-black placeholder-gray-400"
+                            placeholder="e.g. Software Engineer"
+                        />
+                    </div>
                 </div>
 
                 <div className="space-y-2">
                     <label className="text-sm font-medium text-gray-700">{t.steps.personal.email}</label>
-                    <input
-                        type="email"
-                        value={personal.email}
-                        onChange={(e) => updatePersonal('email', e.target.value)}
-                        className="w-full px-4 py-3 rounded-xl border border-gray-200 focus:border-brand-lilac focus:ring-2 focus:ring-brand-lilac/20 outline-none transition-all"
-                        placeholder="e.g. john@example.com"
-                    />
+                    <div className="relative">
+                        <Mail className="absolute left-3 top-1/2 transform -translate-y-1/2 w-5 h-5 text-gray-400" />
+                        <input
+                            type="email"
+                            value={personal.email}
+                            onChange={(e) => updatePersonal('email', e.target.value)}
+                            className="w-full pl-10 pr-4 py-3 rounded-xl border border-gray-200 focus:border-brand-lilac focus:ring-2 focus:ring-brand-lilac/20 outline-none transition-all text-black placeholder-gray-400"
+                            placeholder="e.g. john@example.com"
+                        />
+                    </div>
                 </div>
 
                 <div className="space-y-2">
                     <label className="text-sm font-medium text-gray-700">{t.steps.personal.phone}</label>
-                    <input
-                        type="tel"
-                        value={personal.phone}
-                        onChange={(e) => updatePersonal('phone', e.target.value)}
-                        className="w-full px-4 py-3 rounded-xl border border-gray-200 focus:border-brand-lilac focus:ring-2 focus:ring-brand-lilac/20 outline-none transition-all"
-                        placeholder="e.g. +1 234 567 890"
-                    />
+                    <div className="relative">
+                        <Phone className="absolute left-3 top-1/2 transform -translate-y-1/2 w-5 h-5 text-gray-400" />
+                        <input
+                            type="tel"
+                            value={personal.phone}
+                            onChange={(e) => updatePersonal('phone', e.target.value)}
+                            className="w-full pl-10 pr-4 py-3 rounded-xl border border-gray-200 focus:border-brand-lilac focus:ring-2 focus:ring-brand-lilac/20 outline-none transition-all text-black placeholder-gray-400"
+                            placeholder="e.g. +1 234 567 890"
+                        />
+                    </div>
                 </div>
 
                 <div className="space-y-2 md:col-span-2">
                     <label className="text-sm font-medium text-gray-700">{t.steps.personal.address}</label>
-                    <input
-                        type="text"
-                        value={personal.address}
-                        onChange={(e) => updatePersonal('address', e.target.value)}
-                        className="w-full px-4 py-3 rounded-xl border border-gray-200 focus:border-brand-lilac focus:ring-2 focus:ring-brand-lilac/20 outline-none transition-all"
-                        placeholder="e.g. 123 Main St, Apt 4B"
-                    />
+                    <div className="relative">
+                        <MapPin className="absolute left-3 top-1/2 transform -translate-y-1/2 w-5 h-5 text-gray-400" />
+                        <input
+                            type="text"
+                            value={personal.address}
+                            onChange={(e) => updatePersonal('address', e.target.value)}
+                            className="w-full pl-10 pr-4 py-3 rounded-xl border border-gray-200 focus:border-brand-lilac focus:ring-2 focus:ring-brand-lilac/20 outline-none transition-all text-black placeholder-gray-400"
+                            placeholder="e.g. 123 Main St, Apt 4B"
+                        />
+                    </div>
                 </div>
 
                 <div className="space-y-2">
                     <label className="text-sm font-medium text-gray-700">{t.steps.personal.city}</label>
-                    <input
-                        type="text"
-                        value={personal.city}
-                        onChange={(e) => updatePersonal('city', e.target.value)}
-                        className="w-full px-4 py-3 rounded-xl border border-gray-200 focus:border-brand-lilac focus:ring-2 focus:ring-brand-lilac/20 outline-none transition-all"
-                        placeholder="e.g. New York"
-                    />
+                    <div className="relative">
+                        <MapPin className="absolute left-3 top-1/2 transform -translate-y-1/2 w-5 h-5 text-gray-400" />
+                        <input
+                            type="text"
+                            value={personal.city}
+                            onChange={(e) => updatePersonal('city', e.target.value)}
+                            className="w-full pl-10 pr-4 py-3 rounded-xl border border-gray-200 focus:border-brand-lilac focus:ring-2 focus:ring-brand-lilac/20 outline-none transition-all text-black placeholder-gray-400"
+                            placeholder="e.g. New York"
+                        />
+                    </div>
                 </div>
 
                 <div className="space-y-2">
                     <label className="text-sm font-medium text-gray-700">{t.steps.personal.country}</label>
-                    <input
-                        type="text"
-                        value={personal.country}
-                        onChange={(e) => updatePersonal('country', e.target.value)}
-                        className="w-full px-4 py-3 rounded-xl border border-gray-200 focus:border-brand-lilac focus:ring-2 focus:ring-brand-lilac/20 outline-none transition-all"
-                        placeholder="e.g. USA"
-                    />
+                    <div className="relative">
+                        <MapPin className="absolute left-3 top-1/2 transform -translate-y-1/2 w-5 h-5 text-gray-400" />
+                        <input
+                            type="text"
+                            value={personal.country}
+                            onChange={(e) => updatePersonal('country', e.target.value)}
+                            className="w-full pl-10 pr-4 py-3 rounded-xl border border-gray-200 focus:border-brand-lilac focus:ring-2 focus:ring-brand-lilac/20 outline-none transition-all text-black placeholder-gray-400"
+                            placeholder="e.g. USA"
+                        />
+                    </div>
                 </div>
 
                 <div className="space-y-2">
                     <label className="text-sm font-medium text-gray-700">{t.steps.personal.birthDate}</label>
-                    <input
-                        type="date"
-                        value={personal.birthDate}
-                        onChange={(e) => updatePersonal('birthDate', e.target.value)}
-                        className="w-full px-4 py-3 rounded-xl border border-gray-200 focus:border-brand-lilac focus:ring-2 focus:ring-brand-lilac/20 outline-none transition-all"
-                    />
+                    <div className="relative">
+                        <Calendar className="absolute left-3 top-1/2 transform -translate-y-1/2 w-5 h-5 text-gray-400" />
+                        <input
+                            type="date"
+                            value={personal.birthDate}
+                            onChange={(e) => updatePersonal('birthDate', e.target.value)}
+                            className="w-full pl-10 pr-4 py-3 rounded-xl border border-gray-200 focus:border-brand-lilac focus:ring-2 focus:ring-brand-lilac/20 outline-none transition-all text-black placeholder-gray-400"
+                        />
+                    </div>
                 </div>
             </div>
         </div>

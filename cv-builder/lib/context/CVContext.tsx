@@ -5,7 +5,7 @@ import { CVData, initialCVData, PersonalInfo, Experience, Education, Language, C
 
 interface CVContextType {
     cvData: CVData;
-    updatePersonal: (personal: Partial<PersonalInfo>) => void;
+    updatePersonal: (field: keyof PersonalInfo, value: any) => void;
     updateSummary: (summary: string) => void;
 
     // Experience
@@ -41,10 +41,10 @@ const CVContext = createContext<CVContextType | undefined>(undefined);
 export function CVProvider({ children }: { children: ReactNode }) {
     const [cvData, setCVData] = useState<CVData>(initialCVData);
 
-    const updatePersonal = (personal: Partial<PersonalInfo>) => {
+    const updatePersonal = (field: keyof PersonalInfo, value: any) => {
         setCVData((prev) => ({
             ...prev,
-            personal: { ...prev.personal, ...personal },
+            personal: { ...prev.personal, [field]: value },
         }));
     };
 

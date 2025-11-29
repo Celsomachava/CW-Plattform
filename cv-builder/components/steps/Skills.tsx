@@ -6,20 +6,20 @@ import { useCVContext } from '@/lib/context/CVContext';
 import { useLanguage } from '@/lib/context/LanguageContext';
 
 export default function Skills() {
-    const { cvData, updateSkills } = useCVContext();
+    const { cvData, addSkill, removeSkill } = useCVContext();
     const { t } = useLanguage();
     const [newSkill, setNewSkill] = useState('');
 
     const handleAddSkill = (e?: React.FormEvent) => {
         e?.preventDefault();
         if (newSkill.trim()) {
-            updateSkills([...cvData.skills, newSkill.trim()]);
+            addSkill(newSkill.trim());
             setNewSkill('');
         }
     };
 
-    const removeSkill = (skillToRemove: string) => {
-        updateSkills(cvData.skills.filter((skill) => skill !== skillToRemove));
+    const handleRemoveSkill = (skillToRemove: string) => {
+        removeSkill(skillToRemove);
     };
 
     return (
@@ -35,7 +35,7 @@ export default function Skills() {
                     value={newSkill}
                     onChange={(e) => setNewSkill(e.target.value)}
                     placeholder={t.steps.skills.placeholder}
-                    className="flex-1 px-4 py-3 rounded-xl border border-gray-200 focus:border-brand-lilac focus:ring-2 focus:ring-brand-lilac/20 outline-none"
+                    className="flex-1 px-4 py-3 rounded-xl border border-gray-200 focus:border-brand-lilac focus:ring-2 focus:ring-brand-lilac/20 outline-none text-black placeholder-gray-400"
                 />
                 <button
                     type="submit"
@@ -53,7 +53,7 @@ export default function Skills() {
                     >
                         <span>{skill}</span>
                         <button
-                            onClick={() => removeSkill(skill)}
+                            onClick={() => handleRemoveSkill(skill)}
                             className="p-1 hover:bg-gray-200 rounded-full transition-colors"
                         >
                             <X className="w-3 h-3" />

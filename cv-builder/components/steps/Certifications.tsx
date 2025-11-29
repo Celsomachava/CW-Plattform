@@ -32,7 +32,7 @@ export default function Certifications() {
                                     type="text"
                                     value={cert.name}
                                     onChange={(e) => updateCertification(cert.id, 'name', e.target.value)}
-                                    className="w-full px-4 py-2 rounded-lg border border-gray-200 focus:border-brand-lilac focus:ring-2 focus:ring-brand-lilac/20 outline-none"
+                                    className="w-full px-4 py-2 rounded-lg border border-gray-200 focus:border-brand-lilac focus:ring-2 focus:ring-brand-lilac/20 outline-none text-black placeholder-gray-400"
                                 />
                             </div>
                             <div className="space-y-2">
@@ -41,7 +41,7 @@ export default function Certifications() {
                                     type="text"
                                     value={cert.issuer}
                                     onChange={(e) => updateCertification(cert.id, 'issuer', e.target.value)}
-                                    className="w-full px-4 py-2 rounded-lg border border-gray-200 focus:border-brand-lilac focus:ring-2 focus:ring-brand-lilac/20 outline-none"
+                                    className="w-full px-4 py-2 rounded-lg border border-gray-200 focus:border-brand-lilac focus:ring-2 focus:ring-brand-lilac/20 outline-none text-black placeholder-gray-400"
                                 />
                             </div>
                             <div className="space-y-2">
@@ -50,7 +50,7 @@ export default function Certifications() {
                                     type="text"
                                     value={cert.date}
                                     onChange={(e) => updateCertification(cert.id, 'date', e.target.value)}
-                                    className="w-full px-4 py-2 rounded-lg border border-gray-200 focus:border-brand-lilac focus:ring-2 focus:ring-brand-lilac/20 outline-none"
+                                    className="w-full px-4 py-2 rounded-lg border border-gray-200 focus:border-brand-lilac focus:ring-2 focus:ring-brand-lilac/20 outline-none text-black placeholder-gray-400"
                                     placeholder="MM/YYYY"
                                 />
                             </div>

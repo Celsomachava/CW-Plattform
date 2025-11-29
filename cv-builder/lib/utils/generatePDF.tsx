@@ -3,37 +3,42 @@ import { CVData } from '../types';
 import { translations } from '../translations';
 
 export async function generatePDF(cvData: CVData, language: 'en' | 'pt') {
-    const { pdf } = await import('@react-pdf/renderer');
-    const ModernTemplate = (await import('@/components/pdf/ModernTemplate')).default;
-    const ClassicTemplate = (await import('@/components/pdf/ClassicTemplate')).default;
-    const MinimalTemplate = (await import('@/components/pdf/MinimalTemplate')).default;
-    const BoldTemplate = (await import('@/components/pdf/BoldTemplate')).default;
+    try {
+        const { pdf } = await import('@react-pdf/renderer');
+        const ModernTemplate = (await import('@/components/pdf/ModernTemplate')).default;
+        const ClassicTemplate = (await import('@/components/pdf/ClassicTemplate')).default;
+        const MinimalTemplate = (await import('@/components/pdf/MinimalTemplate')).default;
+        const BoldTemplate = (await import('@/components/pdf/BoldTemplate')).default;
 
-    const t = translations[language].pdf;
-    let template: React.ReactElement;
+        const t = translations[language].pdf;
+        let template: React.ReactElement;
 
-    switch (cvData.templateId) {
-        case 'modern':
-            template = <ModernTemplate data={cvData} t={t} />;
-            break;
-        case 'classic':
-            template = <ClassicTemplate data={cvData} t={t} />;
-            break;
-        case 'minimal':
-            template = <MinimalTemplate data={cvData} t={t} />;
-            break;
-        case 'bold':
-            template = <BoldTemplate data={cvData} t={t} />;
-            break;
-        default:
-            template = <ModernTemplate data={cvData} t={t} />;
+        switch (cvData.templateId) {
+            case 'modern':
+                template = <ModernTemplate data={cvData} t={t} />;
+                break;
+            case 'classic':
+                template = <ClassicTemplate data={cvData} t={t} />;
+                break;
+            case 'minimal':
+                template = <MinimalTemplate data={cvData} t={t} />;
+                break;
+            case 'bold':
+                template = <BoldTemplate data={cvData} t={t} />;
+                break;
+            default:
+                template = <ModernTemplate data={cvData} t={t} />;
+        }
+
+        const blob = await pdf(template).toBlob();
+        const url = URL.createObjectURL(blob);
+        const link = document.createElement('a');
+        link.href = url;
+        link.download = `CV-${cvData.personal.fullName || 'Resume'}-${cvData.templateId}.pdf`;
+        link.click();
+        URL.revokeObjectURL(url);
+    } catch (error) {
+        console.error('Failed to generate PDF:', error);
+        throw new Error('PDF generation failed. Please try again.');
     }
-
-    const blob = await pdf(template).toBlob();
-    const url = URL.createObjectURL(blob);
-    const link = document.createElement('a');
-    link.href = url;
-    link.download = `CV-${cvData.personal.fullName || 'Resume'}-${cvData.templateId}.pdf`;
-    link.click();
-    URL.revokeObjectURL(url);
 }

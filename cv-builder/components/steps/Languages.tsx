@@ -24,7 +24,7 @@ export default function Languages() {
                                 type="text"
                                 value={lang.language}
                                 onChange={(e) => updateLanguage(lang.id, 'language', e.target.value)}
-                                className="w-full px-4 py-2 rounded-lg border border-gray-200 focus:border-brand-lilac focus:ring-2 focus:ring-brand-lilac/20 outline-none"
+                                className="w-full px-4 py-2 rounded-lg border border-gray-200 focus:border-brand-lilac focus:ring-2 focus:ring-brand-lilac/20 outline-none text-black placeholder-gray-400"
                             />
                         </div>
                         <div className="flex-1 space-y-2">
@@ -32,7 +32,7 @@ export default function Languages() {
                             <select
                                 value={lang.proficiency}
                                 onChange={(e) => updateLanguage(lang.id, 'proficiency', e.target.value)}
-                                className="w-full px-4 py-2 rounded-lg border border-gray-200 focus:border-brand-lilac focus:ring-2 focus:ring-brand-lilac/20 outline-none bg-white"
+                                className="w-full px-4 py-2 rounded-lg border border-gray-200 focus:border-brand-lilac focus:ring-2 focus:ring-brand-lilac/20 outline-none bg-white text-black placeholder-gray-400"
                             >
                                 <option value="Basic">Basic</option>
                                 <option value="Intermediate">Intermediate</option>

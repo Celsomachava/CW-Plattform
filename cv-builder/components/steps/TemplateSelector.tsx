@@ -38,6 +38,7 @@ export default function TemplateSelector() {
                                 src={template.image}
                                 alt={template.name}
                                 fill
+                                sizes="(max-width: 768px) 100vw, 50vw"
                                 className="object-cover object-top"
                             />
                             <div className={`absolute inset-0 bg-black/0 group-hover:bg-black/5 transition-colors duration-300 ${cvData.templateId === template.id ? 'bg-black/5' : ''

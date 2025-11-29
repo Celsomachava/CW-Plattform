@@ -91,6 +91,16 @@ export interface Translations {
             name: string;
         };
     };
+    pdf: {
+        contact: string;
+        skills: string;
+        languages: string;
+        summary: string;
+        experience: string;
+        education: string;
+        certifications: string;
+        present: string;
+    };
 }
 
 export const en: Translations = {
@@ -183,6 +193,16 @@ export const en: Translations = {
             name: 'Certification Name',
         },
     },
+    pdf: {
+        contact: 'Contact',
+        skills: 'Skills',
+        languages: 'Languages',
+        summary: 'Summary',
+        experience: 'Experience',
+        education: 'Education',
+        certifications: 'Certifications',
+        present: 'Present',
+    },
 };
 
 export const pt: Translations = {
@@ -274,6 +294,16 @@ export const pt: Translations = {
             add: 'Adicionar Certificação',
             name: 'Nome da Certificação',
         },
+    },
+    pdf: {
+        contact: 'Contato',
+        skills: 'Habilidades',
+        languages: 'Idiomas',
+        summary: 'Resumo',
+        experience: 'Experiência',
+        education: 'Educação',
+        certifications: 'Certificações',
+        present: 'Atual',
     },
 };
 export const translations = { en, pt };

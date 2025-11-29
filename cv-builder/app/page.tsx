@@ -89,6 +89,7 @@ export default function Home() {
                     src={template.image}
                     alt={`${template.name} Template`}
                     fill
+                    sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 25vw"
                     className="object-cover object-top group-hover:scale-105 transition-transform duration-500"
                   />
                   <div className="absolute inset-0 bg-black/0 group-hover:bg-black/5 transition-colors" />
@@ -136,7 +137,7 @@ export default function Home() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col md:flex-row items-center justify-between gap-6">
           <div className="flex items-center gap-2">
             <div className="relative w-6 h-6 opacity-50">
-              <Image src="/logo.png" alt="Logo" fill className="object-contain" />
+              <Image src="/logo.png" alt="Logo" fill sizes="24px" className="object-contain" />
             </div>
             <span className="font-semibold text-gray-400">CV Builder</span>
           </div>

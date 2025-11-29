@@ -18,10 +18,11 @@ export default function Header() {
                             src="/logo.png"
                             alt="Logo"
                             fill
+                            sizes="32px"
                             className="object-contain"
                         />
                     </div>
-                    <span className="font-bold text-xl text-gray-900">CV Builder Something</span>
+                    <span className="font-bold text-xl text-gray-900">CV Builder Construtor</span>
                 </div>
 
                 {/* Language Selector */}

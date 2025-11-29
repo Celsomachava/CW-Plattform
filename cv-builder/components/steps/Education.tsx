@@ -32,7 +32,7 @@ export default function Education() {
                                     type="text"
                                     value={edu.degree}
                                     onChange={(e) => updateEducation(edu.id, 'degree', e.target.value)}
-                                    className="w-full px-4 py-2 rounded-lg border border-gray-200 focus:border-brand-lilac focus:ring-2 focus:ring-brand-lilac/20 outline-none"
+                                    className="w-full px-4 py-2 rounded-lg border border-gray-200 focus:border-brand-lilac focus:ring-2 focus:ring-brand-lilac/20 outline-none text-black placeholder-gray-400"
                                 />
                             </div>
                             <div className="space-y-2">
@@ -41,7 +41,7 @@ export default function Education() {
                                     type="text"
                                     value={edu.school}
                                     onChange={(e) => updateEducation(edu.id, 'school', e.target.value)}
-                                    className="w-full px-4 py-2 rounded-lg border border-gray-200 focus:border-brand-lilac focus:ring-2 focus:ring-brand-lilac/20 outline-none"
+                                    className="w-full px-4 py-2 rounded-lg border border-gray-200 focus:border-brand-lilac focus:ring-2 focus:ring-brand-lilac/20 outline-none text-black placeholder-gray-400"
                                 />
                             </div>
                             <div className="space-y-2">
@@ -50,7 +50,7 @@ export default function Education() {
                                     type="text"
                                     value={edu.startDate}
                                     onChange={(e) => updateEducation(edu.id, 'startDate', e.target.value)}
-                                    className="w-full px-4 py-2 rounded-lg border border-gray-200 focus:border-brand-lilac focus:ring-2 focus:ring-brand-lilac/20 outline-none"
+                                    className="w-full px-4 py-2 rounded-lg border border-gray-200 focus:border-brand-lilac focus:ring-2 focus:ring-brand-lilac/20 outline-none text-black placeholder-gray-400"
                                     placeholder="MM/YYYY"
                                 />
                             </div>
@@ -60,7 +60,7 @@ export default function Education() {
                                     type="text"
                                     value={edu.endDate}
                                     onChange={(e) => updateEducation(edu.id, 'endDate', e.target.value)}
-                                    className="w-full px-4 py-2 rounded-lg border border-gray-200 focus:border-brand-lilac focus:ring-2 focus:ring-brand-lilac/20 outline-none"
+                                    className="w-full px-4 py-2 rounded-lg border border-gray-200 focus:border-brand-lilac focus:ring-2 focus:ring-brand-lilac/20 outline-none text-black placeholder-gray-400"
                                     placeholder="MM/YYYY or Present"
                                 />
                             </div>

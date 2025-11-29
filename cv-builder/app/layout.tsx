@@ -3,6 +3,7 @@ import { Inter } from "next/font/google";
 import "./globals.css";
 import { CVProvider } from "@/lib/context/CVContext";
 import { LanguageProvider } from "@/lib/context/LanguageContext";
+import { ErrorBoundary } from "@/components/ErrorBoundary";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -19,11 +20,13 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={inter.className}>
-        <LanguageProvider>
-          <CVProvider>
-            {children}
-          </CVProvider>
-        </LanguageProvider>
+        <ErrorBoundary>
+          <LanguageProvider>
+            <CVProvider>
+              {children}
+            </CVProvider>
+          </LanguageProvider>
+        </ErrorBoundary>
       </body>
     </html>
   );

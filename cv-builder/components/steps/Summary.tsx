@@ -19,7 +19,7 @@ export default function Summary() {
                     value={cvData.summary}
                     onChange={(e) => updateSummary(e.target.value)}
                     placeholder={t.steps.summary.placeholder}
-                    className="w-full h-48 px-4 py-3 rounded-xl border border-gray-200 focus:border-brand-lilac focus:ring-2 focus:ring-brand-lilac/20 outline-none transition-all resize-none"
+                    className="w-full h-48 px-4 py-3 rounded-xl border border-gray-200 focus:border-brand-lilac focus:ring-2 focus:ring-brand-lilac/20 outline-none transition-all resize-none text-black placeholder-gray-400"
                 />
                 <div className="flex justify-between text-sm text-gray-500">
                     <span>{cvData.summary.length} characters</span>

@@ -32,7 +32,7 @@ export default function Experience() {
                                     type="text"
                                     value={exp.position}
                                     onChange={(e) => updateExperience(exp.id, 'position', e.target.value)}
-                                    className="w-full px-4 py-2 rounded-lg border border-gray-200 focus:border-brand-lilac focus:ring-2 focus:ring-brand-lilac/20 outline-none"
+                                    className="w-full px-4 py-2 rounded-lg border border-gray-200 focus:border-brand-lilac focus:ring-2 focus:ring-brand-lilac/20 outline-none text-black placeholder-gray-400"
                                 />
                             </div>
                             <div className="space-y-2">
@@ -41,7 +41,7 @@ export default function Experience() {
                                     type="text"
                                     value={exp.company}
                                     onChange={(e) => updateExperience(exp.id, 'company', e.target.value)}
-                                    className="w-full px-4 py-2 rounded-lg border border-gray-200 focus:border-brand-lilac focus:ring-2 focus:ring-brand-lilac/20 outline-none"
+                                    className="w-full px-4 py-2 rounded-lg border border-gray-200 focus:border-brand-lilac focus:ring-2 focus:ring-brand-lilac/20 outline-none text-black placeholder-gray-400"
                                 />
                             </div>
                             <div className="space-y-2">
@@ -50,7 +50,7 @@ export default function Experience() {
                                     type="text"
                                     value={exp.startDate}
                                     onChange={(e) => updateExperience(exp.id, 'startDate', e.target.value)}
-                                    className="w-full px-4 py-2 rounded-lg border border-gray-200 focus:border-brand-lilac focus:ring-2 focus:ring-brand-lilac/20 outline-none"
+                                    className="w-full px-4 py-2 rounded-lg border border-gray-200 focus:border-brand-lilac focus:ring-2 focus:ring-brand-lilac/20 outline-none text-black placeholder-gray-400"
                                     placeholder="MM/YYYY"
                                 />
                             </div>
@@ -60,7 +60,7 @@ export default function Experience() {
                                     type="text"
                                     value={exp.endDate}
                                     onChange={(e) => updateExperience(exp.id, 'endDate', e.target.value)}
-                                    className="w-full px-4 py-2 rounded-lg border border-gray-200 focus:border-brand-lilac focus:ring-2 focus:ring-brand-lilac/20 outline-none"
+                                    className="w-full px-4 py-2 rounded-lg border border-gray-200 focus:border-brand-lilac focus:ring-2 focus:ring-brand-lilac/20 outline-none text-black placeholder-gray-400"
                                     placeholder="MM/YYYY or Present"
                                 />
                             </div>
@@ -71,7 +71,7 @@ export default function Experience() {
                             <textarea
                                 value={exp.description}
                                 onChange={(e) => updateExperience(exp.id, 'description', e.target.value)}
-                                className="w-full px-4 py-2 rounded-lg border border-gray-200 focus:border-brand-lilac focus:ring-2 focus:ring-brand-lilac/20 outline-none h-24 resize-none"
+                                className="w-full px-4 py-2 rounded-lg border border-gray-200 focus:border-brand-lilac focus:ring-2 focus:ring-brand-lilac/20 outline-none h-24 resize-none text-black placeholder-gray-400"
                             />
                         </div>
                     </div>

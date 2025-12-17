@@ -8,16 +8,12 @@ interface Props {
 
 export default function TwoColumnHTMLTemplate({ data, t }: Props) {
     return `
-        <!DOCTYPE html>
-        <html>
-        <head>
-            <meta charset="UTF-8">
-            <link rel="preconnect" href="https://fonts.googleapis.com">
-            <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-            <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;600;700&display=swap" rel="stylesheet">
-            <style>
-                * { margin: 0; padding: 0; box-sizing: border-box; }
-                body { 
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;600;700&display=swap" rel="stylesheet">
+        <style>
+            * { margin: 0; padding: 0; box-sizing: border-box; }
+            .two-column-template { 
                     font-family: 'Roboto', -apple-system, BlinkMacSystemFont, sans-serif; 
                     background: white;
                     color: #2c3e50;
@@ -174,19 +170,15 @@ export default function TwoColumnHTMLTemplate({ data, t }: Props) {
                     color: #7f8c8d;
                 }
                 
-                @media print {
-                    .two-column-template {
-                        box-shadow: none;
-                    }
-                    body {
-                        -webkit-print-color-adjust: exact;
-                        print-color-adjust: exact;
-                    }
+            @media print {
+                .two-column-template {
+                    box-shadow: none;
+                    -webkit-print-color-adjust: exact;
+                    print-color-adjust: exact;
                 }
-            </style>
-        </head>
-        <body>
-            <div class="two-column-template">
+            }
+        </style>
+        <div class="two-column-template">
                 <!-- Left Sidebar -->
                 <div class="sidebar">
                     <!-- Contact Information -->
@@ -346,7 +338,5 @@ export default function TwoColumnHTMLTemplate({ data, t }: Props) {
                     ` : ''}
                 </div>
             </div>
-        </body>
-        </html>
     `;
 }

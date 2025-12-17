@@ -8,16 +8,12 @@ interface Props {
 
 export default function MinimalistProHTMLTemplate({ data, t }: Props) {
     return `
-        <!DOCTYPE html>
-        <html>
-        <head>
-            <meta charset="UTF-8">
-            <link rel="preconnect" href="https://fonts.googleapis.com">
-            <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-            <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Source+Sans+Pro:wght@400;600&display=swap" rel="stylesheet">
-            <style>
-                * { margin: 0; padding: 0; box-sizing: border-box; }
-                body { 
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Source+Sans+Pro:wght@400;600&display=swap" rel="stylesheet">
+        <style>
+            * { margin: 0; padding: 0; box-sizing: border-box; }
+            .minimalist-pro-template { 
                     font-family: 'Source Sans Pro', -apple-system, BlinkMacSystemFont, sans-serif; 
                     background: white;
                     color: #1a1a1a;
@@ -201,19 +197,15 @@ export default function MinimalistProHTMLTemplate({ data, t }: Props) {
                     color: #999;
                 }
                 
-                @media print {
-                    .minimalist-pro-template {
-                        padding: 20mm 25mm;
-                    }
-                    body {
-                        -webkit-print-color-adjust: exact;
-                        print-color-adjust: exact;
-                    }
+            @media print {
+                .minimalist-pro-template {
+                    padding: 20mm 25mm;
+                    -webkit-print-color-adjust: exact;
+                    print-color-adjust: exact;
                 }
-            </style>
-        </head>
-        <body>
-            <div class="minimalist-pro-template">
+            }
+        </style>
+        <div class="minimalist-pro-template">
                 <!-- Header -->
                 <div class="header">
                     <div class="name">${data.personal.fullName || ''}</div>
@@ -312,8 +304,6 @@ export default function MinimalistProHTMLTemplate({ data, t }: Props) {
                     </div>
                 </div>
                 ` : ''}
-            </div>
-        </body>
-        </html>
+        </div>
     `;
 }

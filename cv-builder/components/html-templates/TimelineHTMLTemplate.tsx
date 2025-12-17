@@ -8,21 +8,12 @@ interface Props {
 
 export default function TimelineHTMLTemplate({ data, t }: Props) {
     return `
-        <!DOCTYPE html>
-        <html>
-        <head>
-            <meta charset="UTF-8">
-            <link rel="preconnect" href="https://fonts.googleapis.com">
-            <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-            <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
-            <style>
-                * { margin: 0; padding: 0; box-sizing: border-box; }
-                body { 
-                    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; 
-                    background: white;
-                    color: #2d3748;
-                }
-                .timeline-template { 
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+        <style>
+            * { margin: 0; padding: 0; box-sizing: border-box; }
+            .timeline-template { 
                     width: 210mm; 
                     min-height: 297mm; 
                     padding: 20mm; 
@@ -202,19 +193,15 @@ export default function TimelineHTMLTemplate({ data, t }: Props) {
                     color: #718096;
                 }
                 
-                @media print {
-                    .timeline-template {
-                        padding: 15mm;
-                    }
-                    body {
-                        -webkit-print-color-adjust: exact;
-                        print-color-adjust: exact;
-                    }
+            @media print {
+                .timeline-template {
+                    padding: 15mm;
+                    -webkit-print-color-adjust: exact;
+                    print-color-adjust: exact;
                 }
-            </style>
-        </head>
-        <body>
-            <div class="timeline-template">
+            }
+        </style>
+        <div class="timeline-template">
                 <!-- Header -->
                 <div class="header">
                     <div class="name">${data.personal.fullName || ''}</div>
@@ -316,8 +303,6 @@ export default function TimelineHTMLTemplate({ data, t }: Props) {
                     ` : ''}
                 </div>
                 ` : ''}
-            </div>
-        </body>
-        </html>
+        </div>
     `;
 }

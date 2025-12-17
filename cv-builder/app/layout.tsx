@@ -5,7 +5,11 @@ import { CVProvider } from "@/lib/context/CVContext";
 import { LanguageProvider } from "@/lib/context/LanguageContext";
 import { ErrorBoundary } from "@/components/ErrorBoundary";
 
-const inter = Inter({ subsets: ["latin"] });
+const inter = Inter({ 
+  subsets: ["latin"],
+  variable: '--font-inter',
+  display: 'swap'
+});
 
 export const metadata: Metadata = {
   title: "CV Builder - Create Professional Resumes",
@@ -18,8 +22,8 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
-      <body className={inter.className}>
+    <html lang="en" className={inter.variable}>
+      <body>
         <ErrorBoundary>
           <LanguageProvider>
             <CVProvider>

@@ -14,16 +14,20 @@ import Education from '../steps/Education';
 import Skills from '../steps/Skills';
 import Languages from '../steps/Languages';
 import Certifications from '../steps/Certifications';
+import Preview from '../steps/Preview';
+import Payment from '../steps/Payment';
 
 const steps = [
-    { id: 'template', title: 'Template' },
-    { id: 'personal', title: 'Personal' },
-    { id: 'summary', title: 'Summary' },
-    { id: 'experience', title: 'Experience' },
-    { id: 'education', title: 'Education' },
-    { id: 'skills', title: 'Skills' },
-    { id: 'languages', title: 'Languages' },
-    { id: 'certifications', title: 'Certifications' },
+    { id: 'template', title: 'Template', icon: '🎨' },
+    { id: 'personal', title: 'Personal Info', icon: '👤' },
+    { id: 'summary', title: 'Summary', icon: '📝' },
+    { id: 'experience', title: 'Experience', icon: '💼' },
+    { id: 'education', title: 'Education', icon: '🎓' },
+    { id: 'skills', title: 'Skills', icon: '⚡' },
+    { id: 'languages', title: 'Languages', icon: '🌍' },
+    { id: 'certifications', title: 'Certifications', icon: '🏆' },
+    { id: 'preview', title: 'Preview', icon: '👁️' },
+    { id: 'payment', title: 'Payment', icon: '💳' },
 ];
 
 interface StepWizardProps {
@@ -73,23 +77,48 @@ export default function StepWizard({ onBack }: StepWizardProps) {
             case 5: return <Skills />;
             case 6: return <Languages />;
             case 7: return <Certifications />;
+            case 8: return <Preview />;
+            case 9: return <Payment />;
             default: return null;
         }
     };
 
     return (
         <div className="flex-1 flex flex-col max-w-4xl mx-auto w-full p-4 md:p-8">
-            {/* Progress Bar */}
+            {/* Step Navigation */}
             <div className="mb-8">
-                <div className="flex justify-between text-sm font-medium text-gray-500 mb-2">
+                <div className="flex justify-between text-sm font-medium text-gray-500 mb-4">
                     <span>{t.wizard.stepOf} {currentStep + 1} / {steps.length}</span>
                     <span className="text-brand-lilac">{Math.round(((currentStep + 1) / steps.length) * 100)}%</span>
                 </div>
-                <div className="h-2 bg-gray-100 rounded-full overflow-hidden">
-                    <div
-                        className="h-full bg-brand-lilac transition-all duration-300 ease-out"
-                        style={{ width: `${((currentStep + 1) / steps.length) * 100}%` }}
-                    />
+                
+                {/* Step Line Navigation */}
+                <div className="flex items-center justify-between relative overflow-x-auto pb-4">
+                    <div className="absolute top-1/2 left-0 right-0 h-0.5 bg-gray-200 -translate-y-1/2"></div>
+                    <div 
+                        className="absolute top-1/2 left-0 h-0.5 bg-brand-lilac -translate-y-1/2 transition-all duration-500"
+                        style={{ width: `${(currentStep / (steps.length - 1)) * 100}%` }}
+                    ></div>
+                    
+                    {steps.map((step, index) => (
+                        <div key={step.id} className="relative flex flex-col items-center min-w-0 flex-shrink-0">
+                            <div className={`
+                                w-8 h-8 md:w-10 md:h-10 rounded-full flex items-center justify-center text-xs md:text-sm font-medium transition-all duration-300 z-10
+                                ${index <= currentStep 
+                                    ? 'bg-brand-lilac text-white shadow-lg' 
+                                    : 'bg-white border-2 border-gray-200 text-gray-400'
+                                }
+                            `}>
+                                {index < currentStep ? '✓' : step.icon}
+                            </div>
+                            <span className={`
+                                mt-1 md:mt-2 text-xs font-medium transition-colors duration-300 text-center max-w-12 md:max-w-16 leading-tight
+                                ${index <= currentStep ? 'text-brand-lilac' : 'text-gray-400'}
+                            `}>
+                                {step.title}
+                            </span>
+                        </div>
+                    ))}
                 </div>
             </div>
 
@@ -108,25 +137,7 @@ export default function StepWizard({ onBack }: StepWizardProps) {
                     {t.wizard.back}
                 </button>
 
-                {currentStep === steps.length - 1 ? (
-                    <button
-                        onClick={handleDownload}
-                        disabled={isGenerating}
-                        className="flex items-center gap-2 px-8 py-3 bg-brand-lilac text-white rounded-xl font-semibold hover:bg-brand-lilac-dark transition-colors disabled:opacity-50 disabled:cursor-not-allowed shadow-lg shadow-brand-lilac/25"
-                    >
-                        {isGenerating ? (
-                            <>
-                                <Loader2 className="w-5 h-5 animate-spin" />
-                                {t.wizard.generating}
-                            </>
-                        ) : (
-                            <>
-                                <Download className="w-5 h-5" />
-                                {t.wizard.download}
-                            </>
-                        )}
-                    </button>
-                ) : (
+                {currentStep < steps.length - 1 && (
                     <button
                         onClick={handleNext}
                         className="flex items-center gap-2 px-8 py-3 bg-gray-900 text-white rounded-xl font-semibold hover:bg-gray-800 transition-colors shadow-lg shadow-gray-900/10"

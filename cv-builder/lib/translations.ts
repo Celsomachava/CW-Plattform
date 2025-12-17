@@ -90,6 +90,22 @@ export interface Translations {
             add: string;
             name: string;
         };
+        preview: {
+            title: string;
+            subtitle: string;
+        };
+        payment: {
+            title: string;
+            subtitle: string;
+            description: string;
+            secure: string;
+            includes: string;
+            pay: string;
+            processing: string;
+            success: string;
+            successDesc: string;
+            terms: string;
+        };
     };
     pdf: {
         contact: string;
@@ -192,6 +208,22 @@ export const en: Translations = {
             add: 'Add Certification',
             name: 'Certification Name',
         },
+        preview: {
+            title: 'Preview Your CV',
+            subtitle: 'Review your information before payment',
+        },
+        payment: {
+            title: 'Complete Payment',
+            subtitle: 'Secure payment to download your CV',
+            description: 'One-time payment for professional CV download',
+            secure: 'Secure payment with Stripe',
+            includes: 'What\'s included:',
+            pay: 'Pay',
+            processing: 'Processing...',
+            success: 'Payment Successful!',
+            successDesc: 'Your CV is ready for download',
+            terms: 'By proceeding, you agree to our terms of service',
+        },
     },
     pdf: {
         contact: 'Contact',
@@ -293,6 +325,22 @@ export const pt: Translations = {
             subtitle: 'Adicione certificações',
             add: 'Adicionar Certificação',
             name: 'Nome da Certificação',
+        },
+        preview: {
+            title: 'Visualizar CV',
+            subtitle: 'Revise suas informações antes do pagamento',
+        },
+        payment: {
+            title: 'Completar Pagamento',
+            subtitle: 'Pagamento seguro para baixar seu CV',
+            description: 'Pagamento único para download profissional do CV',
+            secure: 'Pagamento seguro com Stripe',
+            includes: 'O que está incluído:',
+            pay: 'Pagar',
+            processing: 'Processando...',
+            success: 'Pagamento Realizado!',
+            successDesc: 'Seu CV está pronto para download',
+            terms: 'Ao prosseguir, você concorda com nossos termos de serviço',
         },
     },
     pdf: {

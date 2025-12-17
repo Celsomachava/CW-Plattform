@@ -4,7 +4,7 @@ import { useState, useEffect } from 'react';
 import { CreditCard, Shield, Download, Loader2 } from 'lucide-react';
 import { useLanguage } from '@/lib/context/LanguageContext';
 import { useCVContext } from '@/lib/context/CVContext';
-import { generatePDF } from '@/lib/utils/generatePDF';
+import { generatePDFPuppeteer } from '@/lib/utils/generatePDFPuppeteer';
 import StripeForm from '../payment/StripeForm';
 
 export default function Payment() {
@@ -12,7 +12,7 @@ export default function Payment() {
     const [paymentComplete, setPaymentComplete] = useState(false);
     const [isGenerating, setIsGenerating] = useState(false);
     const [clientSecret, setClientSecret] = useState('');
-    const { t } = useLanguage();
+    const { t, language } = useLanguage();
     const { cvData } = useCVContext();
 
     useEffect(() => {
@@ -43,9 +43,10 @@ export default function Payment() {
     const handleDownload = async () => {
         setIsGenerating(true);
         try {
-            await generatePDF(cvData, 'en');
+            await generatePDFPuppeteer(cvData, language);
         } catch (error) {
             console.error('Failed to generate PDF:', error);
+            alert('Failed to generate PDF. Please try again.');
         } finally {
             setIsGenerating(false);
         }
@@ -93,7 +94,7 @@ export default function Payment() {
 
             <div className="bg-gradient-to-r from-purple-50 to-blue-50 rounded-xl p-6 border border-purple-200">
                 <div className="text-center">
-                    <div className="text-3xl font-bold text-gray-900 mb-2">100 MZN</div>
+                    <div className="text-3xl font-bold text-gray-900 mb-2">49 MZN</div>
                     <p className="text-gray-600 mb-4">{t.steps.payment.description}</p>
                     
                     <div className="flex items-center justify-center gap-2 text-sm text-gray-500 mb-6">

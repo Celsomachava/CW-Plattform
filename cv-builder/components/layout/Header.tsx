@@ -12,17 +12,17 @@ export default function Header() {
         <header className="w-full bg-white border-b border-gray-100 sticky top-0 z-50">
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
                 {/* Logo */}
-                <div className="flex items-center gap-2">
-                    <div className="relative w-8 h-8">
+                <div className="flex items-center gap-3">
+                    <div className="relative" style={{ width: '30px', height: '30px' }}>
                         <Image
                             src="/logo.png"
                             alt="Logo"
                             fill
-                            sizes="32px"
+                            sizes="30px"
                             className="object-contain"
                         />
                     </div>
-                    <span className="font-bold text-xl text-gray-900">CV Builder Construtor</span>
+                    <span className="font-bold text-xl text-gray-900">{language === 'pt' ? 'Construtor de CV' : 'CV Builder'}</span>
                 </div>
 
                 {/* Language Selector */}

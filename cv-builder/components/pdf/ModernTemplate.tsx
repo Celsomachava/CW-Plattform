@@ -6,7 +6,7 @@ import { Translations } from '../../lib/translations';
 
 
 
-const styles = StyleSheet.create({
+const createStyles = (themeColor: string) => StyleSheet.create({
     page: {
         flexDirection: 'row',
         backgroundColor: '#FFFFFF',
@@ -38,7 +38,7 @@ const styles = StyleSheet.create({
     },
     title: {
         fontSize: 14,
-        color: '#6d54b0',
+        color: themeColor,
         marginBottom: 20,
         textTransform: 'uppercase',
         letterSpacing: 1,
@@ -51,7 +51,7 @@ const styles = StyleSheet.create({
         marginTop: 20,
         textTransform: 'uppercase',
         letterSpacing: 1,
-        borderBottom: '2px solid #6d54b0',
+        borderBottom: `2px solid ${themeColor}`,
         paddingBottom: 5,
     },
     sidebarTitle: {
@@ -109,10 +109,11 @@ const styles = StyleSheet.create({
 
 interface Props {
     data: CVData;
-    t: any; // Using any to avoid complex type import issues, or could import Translations type
+    t: any;
 }
 
 const ModernTemplate: React.FC<Props> = ({ data, t }) => {
+    const styles = createStyles(data.themeColor || '#6d54b0');
     return (
         <Document>
             <Page size="A4" style={styles.page}>
@@ -127,10 +128,26 @@ const ModernTemplate: React.FC<Props> = ({ data, t }) => {
                     </View>
 
                     <View style={{ marginBottom: 20 }}>
-                        <Text style={styles.contactText}>{data.personal.email}</Text>
-                        <Text style={styles.contactText}>{data.personal.phone}</Text>
-                        <Text style={styles.contactText}>{data.personal.address}</Text>
-                        <Text style={styles.contactText}>{data.personal.city}, {data.personal.country}</Text>
+                        {data.personal.phone && (
+                            <View style={styles.contactItem}>
+                                <Text style={styles.contactText}>📞 {data.personal.phone}</Text>
+                            </View>
+                        )}
+                        {data.personal.email && (
+                            <View style={styles.contactItem}>
+                                <Text style={styles.contactText}>✉ {data.personal.email}</Text>
+                            </View>
+                        )}
+                        {data.personal.address && (
+                            <View style={styles.contactItem}>
+                                <Text style={styles.contactText}>📍 {data.personal.address}</Text>
+                            </View>
+                        )}
+                        {(data.personal.city || data.personal.country) && (
+                            <View style={styles.contactItem}>
+                                <Text style={styles.contactText}>🌍 {data.personal.city}{data.personal.city && data.personal.country ? ', ' : ''}{data.personal.country}</Text>
+                            </View>
+                        )}
                     </View>
 
                     {data.skills.length > 0 && (
@@ -153,6 +170,17 @@ const ModernTemplate: React.FC<Props> = ({ data, t }) => {
                                     <Text style={{ fontSize: 9, color: '#666' }}>{lang.proficiency}</Text>
                                 </View>
                             ))}
+                        </View>
+                    )}
+
+                    {data.hobbies && data.hobbies.length > 0 && (
+                        <View>
+                            <Text style={styles.sidebarTitle}>{t.hobbies}</Text>
+                            <View style={styles.skillsContainer}>
+                                {data.hobbies.map((hobby, index) => (
+                                    <Text key={index} style={styles.skillBadge}>{hobby}</Text>
+                                ))}
+                            </View>
                         </View>
                     )}
                 </View>

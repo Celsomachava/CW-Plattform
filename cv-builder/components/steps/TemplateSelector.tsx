@@ -1,5 +1,6 @@
 'use client';
 
+import { useEffect } from 'react';
 import { Check } from 'lucide-react';
 import { useCVContext } from '@/lib/context/CVContext';
 import { useLanguage } from '@/lib/context/LanguageContext';
@@ -8,29 +9,48 @@ import Image from 'next/image';
 export default function TemplateSelector() {
     const { cvData, updateTemplate } = useCVContext();
     const { t } = useLanguage();
+    
+    useEffect(() => {
+        console.log('TemplateSelector - templateId changed to:', cvData.templateId);
+    }, [cvData.templateId]);
 
     const templates = [
-        { id: 'modern', name: t.steps.template.modern, image: '/templates/template1.png', color: 'bg-gray-900' },
-        { id: 'classic', name: t.steps.template.classic, image: '/templates/template2.png', color: 'bg-blue-900' },
-        { id: 'minimal', name: t.steps.template.minimal, image: '/templates/template3.png', color: 'bg-white border-2 border-gray-200' },
-        { id: 'bold', name: t.steps.template.bold, image: '/templates/template4.png', color: 'bg-black' },
+        { id: 'classic' as const, name: 'Classic', image: '/templates/template1.png', description: 'Traditional sidebar layout' },
+        { id: 'modern' as const, name: 'Modern', image: '/templates/template2.png', description: 'Contemporary with color accents' },
+        { id: 'minimal' as const, name: 'Minimal', image: '/templates/template3.png', description: 'Clean and simple' },
+        { id: 'creative' as const, name: 'Creative', image: '/templates/template4.png', description: 'Bold colored sidebar' },
+        { id: 'executive' as const, name: 'Executive', image: '/templates/template1.png', description: 'Elegant serif design' },
+        { id: 'professional' as const, name: 'Compact', image: '/templates/template2.png', description: 'Professional and concise' },
+        { id: 'bold' as const, name: 'Bold', image: '/templates/template4.png', description: 'Eye-catching modern' },
+        { id: 'timeline' as const, name: 'Timeline', image: '/templates/template3.png', description: 'Vertical timeline layout' },
+        { id: 'two-column' as const, name: 'Two Column', image: '/templates/template1.png', description: 'Dark sidebar professional' },
+        { id: 'minimalist-pro' as const, name: 'Minimalist Pro', image: '/templates/template3.png', description: 'Ultra-clean centered' },
     ];
 
     return (
-        <div className="animate-fade-in">
-            <div className="text-center mb-10">
+        <div className="space-y-6">
+            <div>
                 <h2 className="text-2xl font-bold text-gray-900 mb-2">{t.steps.template.title}</h2>
-                <p className="text-gray-500">{t.steps.template.subtitle}</p>
+                <p className="text-gray-600">{t.steps.template.subtitle}</p>
             </div>
 
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                 {templates.map((template) => (
-                    <div
+                    <button
                         key={template.id}
-                        onClick={() => updateTemplate(template.id)}
-                        className={`group relative rounded-xl overflow-hidden cursor-pointer transition-all duration-300 border-2 ${cvData.templateId === template.id
+                        type="button"
+                        onClick={(e) => {
+                            e.preventDefault();
+                            e.stopPropagation();
+                            console.log('=== Template Click ===');
+                            console.log('Clicked:', template.id);
+                            console.log('Before update:', cvData.templateId);
+                            updateTemplate(template.id);
+                            console.log('After update call');
+                        }}
+                        className={`group relative rounded-xl overflow-hidden cursor-pointer transition-all duration-300 border-2 w-full text-left ${cvData.templateId === template.id
                                 ? 'border-brand-lilac ring-4 ring-brand-lilac/10 scale-[1.02]'
-                                : 'border-transparent hover:border-gray-200 hover:scale-[1.01]'
+                                : 'border-gray-300 hover:border-brand-lilac hover:scale-[1.01]'
                             }`}
                     >
                         <div className="aspect-[210/297] relative bg-gray-100">
@@ -55,7 +75,7 @@ export default function TemplateSelector() {
                                 )}
                             </div>
                         </div>
-                    </div>
+                    </button>
                 ))}
             </div>
         </div>

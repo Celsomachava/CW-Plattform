@@ -32,7 +32,12 @@ interface CVContextType {
     removeCertification: (id: string) => void;
     updateCertification: (id: string, field: keyof Certification, value: any) => void;
 
+    // Hobbies
+    addHobby: (hobby: string) => void;
+    removeHobby: (hobby: string) => void;
+
     updateTemplate: (templateId: TemplateId) => void;
+    updateColor: (color: string) => void;
     resetData: () => void;
 }
 
@@ -55,7 +60,7 @@ export function CVProvider({ children }: { children: ReactNode }) {
     // Experience
     const addExperience = () => {
         const newExperience: Experience = {
-            id: crypto.randomUUID(),
+            id: `${Date.now()}-${Math.random()}`,
             position: '',
             company: '',
             location: '',
@@ -89,7 +94,7 @@ export function CVProvider({ children }: { children: ReactNode }) {
     // Education
     const addEducation = () => {
         const newEducation: Education = {
-            id: crypto.randomUUID(),
+            id: `${Date.now()}-${Math.random()}`,
             degree: '',
             school: '',
             location: '',
@@ -139,7 +144,7 @@ export function CVProvider({ children }: { children: ReactNode }) {
     // Languages
     const addLanguage = () => {
         const newLanguage: Language = {
-            id: crypto.randomUUID(),
+            id: `${Date.now()}-${Math.random()}`,
             language: '',
             proficiency: 'Basic',
         };
@@ -168,7 +173,7 @@ export function CVProvider({ children }: { children: ReactNode }) {
     // Certifications
     const addCertification = () => {
         const newCertification: Certification = {
-            id: crypto.randomUUID(),
+            id: `${Date.now()}-${Math.random()}`,
             name: '',
             issuer: '',
             date: '',
@@ -196,8 +201,29 @@ export function CVProvider({ children }: { children: ReactNode }) {
         }));
     };
 
+    // Hobbies
+    const addHobby = (hobby: string) => {
+        if (!cvData.hobbies || !cvData.hobbies.includes(hobby)) {
+            setCVData((prev) => ({
+                ...prev,
+                hobbies: [...(prev.hobbies || []), hobby],
+            }));
+        }
+    };
+
+    const removeHobby = (hobby: string) => {
+        setCVData((prev) => ({
+            ...prev,
+            hobbies: (prev.hobbies || []).filter((h) => h !== hobby),
+        }));
+    };
+
     const updateTemplate = (templateId: TemplateId) => {
         setCVData((prev) => ({ ...prev, templateId }));
+    };
+
+    const updateColor = (color: string) => {
+        setCVData((prev) => ({ ...prev, themeColor: color }));
     };
 
     const resetData = () => {
@@ -224,7 +250,10 @@ export function CVProvider({ children }: { children: ReactNode }) {
                 addCertification,
                 removeCertification,
                 updateCertification,
+                addHobby,
+                removeHobby,
                 updateTemplate,
+                updateColor,
                 resetData,
             }}
         >

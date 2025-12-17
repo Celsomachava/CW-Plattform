@@ -14,20 +14,22 @@ import Education from '../steps/Education';
 import Skills from '../steps/Skills';
 import Languages from '../steps/Languages';
 import Certifications from '../steps/Certifications';
+import Hobbies from '../steps/Hobbies';
 import Preview from '../steps/Preview';
 import Payment from '../steps/Payment';
 
 const steps = [
-    { id: 'template', title: 'Template', icon: '🎨' },
-    { id: 'personal', title: 'Personal Info', icon: '👤' },
-    { id: 'summary', title: 'Summary', icon: '📝' },
-    { id: 'experience', title: 'Experience', icon: '💼' },
-    { id: 'education', title: 'Education', icon: '🎓' },
-    { id: 'skills', title: 'Skills', icon: '⚡' },
-    { id: 'languages', title: 'Languages', icon: '🌍' },
-    { id: 'certifications', title: 'Certifications', icon: '🏆' },
-    { id: 'preview', title: 'Preview', icon: '👁️' },
-    { id: 'payment', title: 'Payment', icon: '💳' },
+    { id: 'template', title: 'Template' },
+    { id: 'personal', title: 'Personal Info' },
+    { id: 'summary', title: 'Summary' },
+    { id: 'experience', title: 'Experience' },
+    { id: 'education', title: 'Education' },
+    { id: 'skills', title: 'Skills' },
+    { id: 'languages', title: 'Languages' },
+    { id: 'certifications', title: 'Certifications' },
+    { id: 'hobbies', title: 'Hobbies' },
+    { id: 'preview', title: 'Preview' },
+    { id: 'payment', title: 'Payment' },
 ];
 
 interface StepWizardProps {
@@ -77,8 +79,9 @@ export default function StepWizard({ onBack }: StepWizardProps) {
             case 5: return <Skills />;
             case 6: return <Languages />;
             case 7: return <Certifications />;
-            case 8: return <Preview />;
-            case 9: return <Payment />;
+            case 8: return <Hobbies />;
+            case 9: return <Preview />;
+            case 10: return <Payment />;
             default: return null;
         }
     };
@@ -109,7 +112,7 @@ export default function StepWizard({ onBack }: StepWizardProps) {
                                     : 'bg-white border-2 border-gray-200 text-gray-400'
                                 }
                             `}>
-                                {index < currentStep ? '✓' : step.icon}
+                                {index < currentStep ? '✓' : index + 1}
                             </div>
                             <span className={`
                                 mt-1 md:mt-2 text-xs font-medium transition-colors duration-300 text-center max-w-12 md:max-w-16 leading-tight

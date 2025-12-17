@@ -1,81 +1,80 @@
 import React from 'react';
-import { Page, Text, View, Document, StyleSheet, Font } from '@react-pdf/renderer';
+import { Page, Text, View, Document, StyleSheet, Image } from '@react-pdf/renderer';
 import { CVData } from '../../lib/types';
-import { Translations } from '../../lib/translations';
-
-
 
 const createStyles = (themeColor: string) => StyleSheet.create({
     page: {
-        padding: 50,
+        padding: 40,
         backgroundColor: '#FFFFFF',
         fontFamily: 'Helvetica',
     },
     header: {
         marginBottom: 30,
+        paddingBottom: 20,
+        borderBottom: `3px solid ${themeColor}`,
     },
     name: {
-        fontSize: 28,
+        fontSize: 32,
         fontWeight: 'bold',
-        color: '#000',
-        marginBottom: 5,
+        color: '#1a1a1a',
+        marginBottom: 8,
     },
     title: {
-        fontSize: 14,
-        color: '#666',
+        fontSize: 16,
+        color: themeColor,
         marginBottom: 15,
     },
-    contact: {
+    contactRow: {
+        flexDirection: 'row',
+        gap: 20,
         fontSize: 10,
         color: '#666',
-        lineHeight: 1.5,
     },
     section: {
         marginBottom: 25,
     },
     sectionTitle: {
-        fontSize: 11,
+        fontSize: 14,
         fontWeight: 'bold',
-        color: '#000',
+        color: themeColor,
+        marginBottom: 12,
         textTransform: 'uppercase',
         letterSpacing: 1,
-        marginBottom: 10,
     },
     item: {
         marginBottom: 15,
     },
-    itemHeader: {
-        flexDirection: 'row',
-        justifyContent: 'space-between',
-        marginBottom: 2,
-    },
-    position: {
-        fontSize: 11,
+    itemTitle: {
+        fontSize: 12,
         fontWeight: 'bold',
-        color: '#000',
+        color: '#1a1a1a',
+        marginBottom: 3,
     },
-    company: {
+    itemSubtitle: {
         fontSize: 11,
         color: '#444',
+        marginBottom: 2,
     },
     date: {
         fontSize: 10,
         color: '#888',
+        marginBottom: 5,
     },
     description: {
         fontSize: 10,
         color: '#444',
         lineHeight: 1.5,
-        marginTop: 3,
     },
-    skills: {
+    skillsGrid: {
         flexDirection: 'row',
         flexWrap: 'wrap',
         gap: 8,
     },
-    skill: {
+    skillBadge: {
+        backgroundColor: '#f0f0f0',
+        padding: '5 10',
+        borderRadius: 4,
         fontSize: 10,
-        color: '#444',
     },
 });
 
@@ -84,17 +83,19 @@ interface Props {
     t: any;
 }
 
-const MinimalTemplate: React.FC<Props> = ({ data, t }) => {
+const ExecutiveTemplate: React.FC<Props> = ({ data, t }) => {
     const styles = createStyles(data.themeColor || '#6d54b0');
+
     return (
         <Document>
             <Page size="A4" style={styles.page}>
                 <View style={styles.header}>
                     <Text style={styles.name}>{data.personal.fullName}</Text>
                     <Text style={styles.title}>{data.personal.title}</Text>
-                    <View>
-                        <Text style={styles.contact}>✉ {data.personal.email} • 📞 {data.personal.phone}</Text>
-                        <Text style={styles.contact}>📍 {data.personal.address}, {data.personal.city}, {data.personal.country}</Text>
+                    <View style={styles.contactRow}>
+                        {data.personal.phone && <Text>📞 {data.personal.phone}</Text>}
+                        {data.personal.email && <Text>✉ {data.personal.email}</Text>}
+                        {data.personal.city && <Text>🌍 {data.personal.city}, {data.personal.country}</Text>}
                     </View>
                 </View>
 
@@ -110,11 +111,9 @@ const MinimalTemplate: React.FC<Props> = ({ data, t }) => {
                         <Text style={styles.sectionTitle}>{t.experience}</Text>
                         {data.experience.map((exp, index) => (
                             <View key={index} style={styles.item}>
-                                <View style={styles.itemHeader}>
-                                    <Text style={styles.position}>{exp.position}</Text>
-                                    <Text style={styles.date}>{exp.startDate} - {exp.current ? t.present : exp.endDate}</Text>
-                                </View>
-                                <Text style={styles.company}>{exp.company}, {exp.location}</Text>
+                                <Text style={styles.itemTitle}>{exp.position}</Text>
+                                <Text style={styles.itemSubtitle}>{exp.company} | {exp.location}</Text>
+                                <Text style={styles.date}>{exp.startDate} - {exp.current ? t.present : exp.endDate}</Text>
                                 <Text style={styles.description}>{exp.description}</Text>
                             </View>
                         ))}
@@ -126,12 +125,9 @@ const MinimalTemplate: React.FC<Props> = ({ data, t }) => {
                         <Text style={styles.sectionTitle}>{t.education}</Text>
                         {data.education.map((edu, index) => (
                             <View key={index} style={styles.item}>
-                                <View style={styles.itemHeader}>
-                                    <Text style={styles.position}>{edu.degree}</Text>
-                                    <Text style={styles.date}>{edu.startDate} - {edu.endDate}</Text>
-                                </View>
-                                <Text style={styles.company}>{edu.school}, {edu.location}</Text>
-                                <Text style={styles.description}>{edu.description}</Text>
+                                <Text style={styles.itemTitle}>{edu.degree}</Text>
+                                <Text style={styles.itemSubtitle}>{edu.school} | {edu.location}</Text>
+                                <Text style={styles.date}>{edu.startDate} - {edu.endDate}</Text>
                             </View>
                         ))}
                     </View>
@@ -140,24 +136,9 @@ const MinimalTemplate: React.FC<Props> = ({ data, t }) => {
                 {data.skills.length > 0 && (
                     <View style={styles.section}>
                         <Text style={styles.sectionTitle}>{t.skills}</Text>
-                        <View style={styles.skills}>
+                        <View style={styles.skillsGrid}>
                             {data.skills.map((skill, index) => (
-                                <Text key={index} style={styles.skill}>
-                                    {skill}{index < data.skills.length - 1 ? ' • ' : ''}
-                                </Text>
-                            ))}
-                        </View>
-                    </View>
-                )}
-
-                {data.hobbies && data.hobbies.length > 0 && (
-                    <View style={styles.section}>
-                        <Text style={styles.sectionTitle}>{t.hobbies}</Text>
-                        <View style={styles.skills}>
-                            {data.hobbies.map((hobby, index) => (
-                                <Text key={index} style={styles.skill}>
-                                    {hobby}{index < data.hobbies.length - 1 ? ' • ' : ''}
-                                </Text>
+                                <Text key={index} style={styles.skillBadge}>{skill}</Text>
                             ))}
                         </View>
                     </View>
@@ -167,4 +148,4 @@ const MinimalTemplate: React.FC<Props> = ({ data, t }) => {
     );
 };
 
-export default MinimalTemplate;
+export default ExecutiveTemplate;

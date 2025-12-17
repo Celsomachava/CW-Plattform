@@ -5,7 +5,7 @@ import { Translations } from '../../lib/translations';
 
 
 
-const styles = StyleSheet.create({
+const createStyles = (themeColor: string) => StyleSheet.create({
     page: {
         flexDirection: 'row',
         backgroundColor: '#FFFFFF',
@@ -37,7 +37,7 @@ const styles = StyleSheet.create({
     },
     title: {
         fontSize: 14,
-        color: '#6d54b0',
+        color: themeColor,
         marginBottom: 30,
         textTransform: 'uppercase',
         letterSpacing: 2,
@@ -51,7 +51,7 @@ const styles = StyleSheet.create({
         marginTop: 20,
         textTransform: 'uppercase',
         letterSpacing: 1,
-        borderBottom: '1px solid #6d54b0',
+        borderBottom: `1px solid ${themeColor}`,
         paddingBottom: 5,
     },
     sectionTitleRight: {
@@ -62,7 +62,7 @@ const styles = StyleSheet.create({
         marginTop: 10,
         textTransform: 'uppercase',
         letterSpacing: 1,
-        borderBottom: '2px solid #6d54b0',
+        borderBottom: `2px solid ${themeColor}`,
         paddingBottom: 5,
     },
     contactItem: {
@@ -93,9 +93,9 @@ const styles = StyleSheet.create({
     },
     skillFill: {
         height: '100%',
-        backgroundColor: '#6d54b0',
+        backgroundColor: themeColor,
         borderRadius: 1,
-        width: '80%', // Static width for visual
+        width: '80%',
     },
     experienceItem: {
         marginBottom: 20,
@@ -107,7 +107,7 @@ const styles = StyleSheet.create({
     },
     company: {
         fontSize: 11,
-        color: '#6d54b0',
+        color: themeColor,
         marginBottom: 2,
     },
     date: {
@@ -128,6 +128,7 @@ interface Props {
 }
 
 const BoldTemplate: React.FC<Props> = ({ data, t }) => {
+    const styles = createStyles(data.themeColor || '#6d54b0');
     return (
         <Document>
             <Page size="A4" style={styles.page}>
@@ -139,16 +140,13 @@ const BoldTemplate: React.FC<Props> = ({ data, t }) => {
                     <View>
                         <Text style={styles.sectionTitleLeft}>{t.contact}</Text>
                         <View style={styles.contactItem}>
-                            <Text style={styles.contactLabel}>{t.steps?.personal?.email || 'Email'}</Text>
-                            <Text style={styles.contactValue}>{data.personal.email}</Text>
+                            <Text style={styles.contactValue}>✉ {data.personal.email}</Text>
                         </View>
                         <View style={styles.contactItem}>
-                            <Text style={styles.contactLabel}>{t.steps?.personal?.phone || 'Phone'}</Text>
-                            <Text style={styles.contactValue}>{data.personal.phone}</Text>
+                            <Text style={styles.contactValue}>📞 {data.personal.phone}</Text>
                         </View>
                         <View style={styles.contactItem}>
-                            <Text style={styles.contactLabel}>{t.steps?.personal?.address || 'Address'}</Text>
-                            <Text style={styles.contactValue}>{data.personal.address}</Text>
+                            <Text style={styles.contactValue}>📍 {data.personal.address}</Text>
                             <Text style={styles.contactValue}>{data.personal.city}, {data.personal.country}</Text>
                         </View>
                     </View>
@@ -175,6 +173,15 @@ const BoldTemplate: React.FC<Props> = ({ data, t }) => {
                                     <Text style={styles.contactValue}>{lang.language}</Text>
                                     <Text style={styles.contactLabel}>{lang.proficiency}</Text>
                                 </View>
+                            ))}
+                        </View>
+                    )}
+
+                    {data.hobbies && data.hobbies.length > 0 && (
+                        <View>
+                            <Text style={styles.sectionTitleLeft}>{t.hobbies}</Text>
+                            {data.hobbies.map((hobby, index) => (
+                                <Text key={index} style={styles.skillName}>{hobby}</Text>
                             ))}
                         </View>
                     )}

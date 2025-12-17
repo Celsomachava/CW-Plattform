@@ -1,13 +1,21 @@
 // TypeScript interfaces for CV data structure
 
 export interface PersonalInfo {
+    firstName: string;
+    lastName: string;
     fullName: string;
     email: string;
     phone: string;
     address: string;
     city: string;
+    postcode: string;
     country: string;
     birthDate: string;
+    nationality: string;
+    drivingLicense: string;
+    linkedin: string;
+    website: string;
+    twitter: string;
     title: string;
     photo?: string; // base64 encoded image
 }
@@ -31,6 +39,8 @@ export interface Education {
     startDate: string;
     endDate: string;
     description?: string;
+    hideDates?: boolean;
+    extraInfo?: string;
 }
 
 export interface Language {
@@ -47,10 +57,11 @@ export interface Certification {
     credentialId?: string;
 }
 
-export type TemplateId = 'modern' | 'classic' | 'minimal' | 'bold';
+export type TemplateId = 'classic' | 'modern' | 'minimal' | 'creative' | 'executive' | 'professional' | 'bold' | 'timeline' | 'two-column' | 'minimalist-pro';
 
 export interface CVData {
     templateId: TemplateId;
+    themeColor: string;
     personal: PersonalInfo;
     summary: string;
     experience: Experience[];
@@ -58,18 +69,28 @@ export interface CVData {
     skills: string[];
     languages: Language[];
     certifications: Certification[];
+    hobbies: string[];
 }
 
 export const initialCVData: CVData = {
-    templateId: 'modern',
+    templateId: 'classic',
+    themeColor: '#6d54b0',
     personal: {
+        firstName: '',
+        lastName: '',
         fullName: '',
         email: '',
         phone: '',
         address: '',
         city: '',
+        postcode: '',
         country: '',
         birthDate: '',
+        nationality: '',
+        drivingLicense: '',
+        linkedin: '',
+        website: '',
+        twitter: '',
         title: '',
         photo: undefined,
     },
@@ -79,4 +100,5 @@ export const initialCVData: CVData = {
     skills: [],
     languages: [],
     certifications: [],
+    hobbies: [],
 };

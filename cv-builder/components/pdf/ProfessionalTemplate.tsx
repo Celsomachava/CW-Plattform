@@ -1,9 +1,6 @@
 import React from 'react';
-import { Page, Text, View, Document, StyleSheet, Font } from '@react-pdf/renderer';
+import { Page, Text, View, Document, StyleSheet } from '@react-pdf/renderer';
 import { CVData } from '../../lib/types';
-import { Translations } from '../../lib/translations';
-
-
 
 const createStyles = (themeColor: string) => StyleSheet.create({
     page: {
@@ -12,18 +9,20 @@ const createStyles = (themeColor: string) => StyleSheet.create({
         fontFamily: 'Helvetica',
     },
     header: {
-        marginBottom: 30,
+        marginBottom: 25,
+        paddingBottom: 15,
+        borderBottom: `2px solid ${themeColor}`,
     },
     name: {
         fontSize: 28,
         fontWeight: 'bold',
-        color: '#000',
+        color: themeColor,
         marginBottom: 5,
     },
     title: {
         fontSize: 14,
-        color: '#666',
-        marginBottom: 15,
+        color: '#444',
+        marginBottom: 10,
     },
     contact: {
         fontSize: 10,
@@ -31,51 +30,51 @@ const createStyles = (themeColor: string) => StyleSheet.create({
         lineHeight: 1.5,
     },
     section: {
-        marginBottom: 25,
+        marginBottom: 20,
     },
     sectionTitle: {
-        fontSize: 11,
+        fontSize: 13,
         fontWeight: 'bold',
-        color: '#000',
-        textTransform: 'uppercase',
-        letterSpacing: 1,
+        color: themeColor,
         marginBottom: 10,
+        textTransform: 'uppercase',
+        letterSpacing: 0.5,
     },
     item: {
-        marginBottom: 15,
+        marginBottom: 12,
+        paddingLeft: 10,
+        borderLeft: `2px solid ${themeColor}`,
     },
-    itemHeader: {
-        flexDirection: 'row',
-        justifyContent: 'space-between',
-        marginBottom: 2,
-    },
-    position: {
+    itemTitle: {
         fontSize: 11,
         fontWeight: 'bold',
-        color: '#000',
+        color: '#1a1a1a',
+        marginBottom: 2,
     },
-    company: {
-        fontSize: 11,
-        color: '#444',
+    itemSubtitle: {
+        fontSize: 10,
+        color: '#666',
+        marginBottom: 2,
     },
     date: {
-        fontSize: 10,
+        fontSize: 9,
         color: '#888',
+        marginBottom: 4,
     },
     description: {
         fontSize: 10,
         color: '#444',
-        lineHeight: 1.5,
-        marginTop: 3,
+        lineHeight: 1.4,
     },
-    skills: {
+    skillsRow: {
         flexDirection: 'row',
         flexWrap: 'wrap',
-        gap: 8,
+        gap: 6,
     },
     skill: {
         fontSize: 10,
         color: '#444',
+        paddingRight: 10,
     },
 });
 
@@ -84,17 +83,18 @@ interface Props {
     t: any;
 }
 
-const MinimalTemplate: React.FC<Props> = ({ data, t }) => {
+const ProfessionalTemplate: React.FC<Props> = ({ data, t }) => {
     const styles = createStyles(data.themeColor || '#6d54b0');
+
     return (
         <Document>
             <Page size="A4" style={styles.page}>
                 <View style={styles.header}>
                     <Text style={styles.name}>{data.personal.fullName}</Text>
                     <Text style={styles.title}>{data.personal.title}</Text>
-                    <View>
-                        <Text style={styles.contact}>✉ {data.personal.email} • 📞 {data.personal.phone}</Text>
-                        <Text style={styles.contact}>📍 {data.personal.address}, {data.personal.city}, {data.personal.country}</Text>
+                    <View style={styles.contact}>
+                        <Text>📞 {data.personal.phone} | ✉ {data.personal.email}</Text>
+                        <Text>📍 {data.personal.address}, {data.personal.city}, {data.personal.country}</Text>
                     </View>
                 </View>
 
@@ -110,11 +110,9 @@ const MinimalTemplate: React.FC<Props> = ({ data, t }) => {
                         <Text style={styles.sectionTitle}>{t.experience}</Text>
                         {data.experience.map((exp, index) => (
                             <View key={index} style={styles.item}>
-                                <View style={styles.itemHeader}>
-                                    <Text style={styles.position}>{exp.position}</Text>
-                                    <Text style={styles.date}>{exp.startDate} - {exp.current ? t.present : exp.endDate}</Text>
-                                </View>
-                                <Text style={styles.company}>{exp.company}, {exp.location}</Text>
+                                <Text style={styles.itemTitle}>{exp.position}</Text>
+                                <Text style={styles.itemSubtitle}>{exp.company}, {exp.location}</Text>
+                                <Text style={styles.date}>{exp.startDate} - {exp.current ? t.present : exp.endDate}</Text>
                                 <Text style={styles.description}>{exp.description}</Text>
                             </View>
                         ))}
@@ -126,12 +124,9 @@ const MinimalTemplate: React.FC<Props> = ({ data, t }) => {
                         <Text style={styles.sectionTitle}>{t.education}</Text>
                         {data.education.map((edu, index) => (
                             <View key={index} style={styles.item}>
-                                <View style={styles.itemHeader}>
-                                    <Text style={styles.position}>{edu.degree}</Text>
-                                    <Text style={styles.date}>{edu.startDate} - {edu.endDate}</Text>
-                                </View>
-                                <Text style={styles.company}>{edu.school}, {edu.location}</Text>
-                                <Text style={styles.description}>{edu.description}</Text>
+                                <Text style={styles.itemTitle}>{edu.degree}</Text>
+                                <Text style={styles.itemSubtitle}>{edu.school}, {edu.location}</Text>
+                                <Text style={styles.date}>{edu.startDate} - {edu.endDate}</Text>
                             </View>
                         ))}
                     </View>
@@ -140,26 +135,24 @@ const MinimalTemplate: React.FC<Props> = ({ data, t }) => {
                 {data.skills.length > 0 && (
                     <View style={styles.section}>
                         <Text style={styles.sectionTitle}>{t.skills}</Text>
-                        <View style={styles.skills}>
+                        <View style={styles.skillsRow}>
                             {data.skills.map((skill, index) => (
-                                <Text key={index} style={styles.skill}>
-                                    {skill}{index < data.skills.length - 1 ? ' • ' : ''}
-                                </Text>
+                                <Text key={index} style={styles.skill}>• {skill}</Text>
                             ))}
                         </View>
                     </View>
                 )}
 
-                {data.hobbies && data.hobbies.length > 0 && (
+                {data.certifications.length > 0 && (
                     <View style={styles.section}>
-                        <Text style={styles.sectionTitle}>{t.hobbies}</Text>
-                        <View style={styles.skills}>
-                            {data.hobbies.map((hobby, index) => (
-                                <Text key={index} style={styles.skill}>
-                                    {hobby}{index < data.hobbies.length - 1 ? ' • ' : ''}
-                                </Text>
-                            ))}
-                        </View>
+                        <Text style={styles.sectionTitle}>{t.certifications}</Text>
+                        {data.certifications.map((cert, index) => (
+                            <View key={index} style={styles.item}>
+                                <Text style={styles.itemTitle}>{cert.name}</Text>
+                                <Text style={styles.itemSubtitle}>{cert.issuer}</Text>
+                                <Text style={styles.date}>{cert.date}</Text>
+                            </View>
+                        ))}
                     </View>
                 )}
             </Page>
@@ -167,4 +160,4 @@ const MinimalTemplate: React.FC<Props> = ({ data, t }) => {
     );
 };
 
-export default MinimalTemplate;
+export default ProfessionalTemplate;

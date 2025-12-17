@@ -5,7 +5,7 @@ import { Translations } from '../../lib/translations';
 
 
 
-const styles = StyleSheet.create({
+const createStyles = (themeColor: string) => StyleSheet.create({
     page: {
         padding: 40,
         backgroundColor: '#FFFFFF',
@@ -89,6 +89,7 @@ interface Props {
 }
 
 const ClassicTemplate: React.FC<Props> = ({ data, t }) => {
+    const styles = createStyles(data.themeColor || '#6d54b0');
     return (
         <Document>
             <Page size="A4" style={styles.page}>
@@ -96,11 +97,11 @@ const ClassicTemplate: React.FC<Props> = ({ data, t }) => {
                     <Text style={styles.name}>{data.personal.fullName}</Text>
                     <Text style={styles.title}>{data.personal.title}</Text>
                     <View style={styles.contactInfo}>
-                        <Text>{data.personal.email}</Text>
+                        <Text>✉ {data.personal.email}</Text>
                         <Text>|</Text>
-                        <Text>{data.personal.phone}</Text>
+                        <Text>📞 {data.personal.phone}</Text>
                         <Text>|</Text>
-                        <Text>{data.personal.city}, {data.personal.country}</Text>
+                        <Text>🌍 {data.personal.city}, {data.personal.country}</Text>
                     </View>
                 </View>
 
@@ -149,6 +150,17 @@ const ClassicTemplate: React.FC<Props> = ({ data, t }) => {
                         <View style={styles.skillsList}>
                             {data.skills.map((skill, index) => (
                                 <Text key={index} style={styles.skill}>{skill}</Text>
+                            ))}
+                        </View>
+                    </View>
+                )}
+
+                {data.hobbies && data.hobbies.length > 0 && (
+                    <View style={styles.section}>
+                        <Text style={styles.sectionTitle}>{t.hobbies}</Text>
+                        <View style={styles.skillsList}>
+                            {data.hobbies.map((hobby, index) => (
+                                <Text key={index} style={styles.skill}>{hobby}</Text>
                             ))}
                         </View>
                     </View>

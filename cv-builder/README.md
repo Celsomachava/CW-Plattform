@@ -4,11 +4,11 @@ A modern, professional CV/Resume builder web application that allows users to cr
 
 ## Features
 
-✨ **4 Professional Templates**
-- **Modern**: Sidebar layout with photo and color accents
-- **Classic**: Traditional header with formal design
-- **Minimal**: Clean centered layout with subtle styling
-- **Bold**: Creative two-column layout with color blocks
+✨ **10 Professional Templates**
+- **Classic/Traditional (3)**: Classic, Executive, Two Column
+- **Modern (3)**: Modern, Modern 2, Timeline
+- **Creative (2)**: Creative, Bold
+- **Minimalist (2)**: Minimal, Minimalist Pro
 
 📝 **Comprehensive Sections**
 - Personal Information (with photo upload)

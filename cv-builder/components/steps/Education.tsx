@@ -3,10 +3,12 @@
 import { Plus, Trash2 } from 'lucide-react';
 import { useCVContext } from '@/lib/context/CVContext';
 import { useLanguage } from '@/lib/context/LanguageContext';
+import { useState } from 'react';
 
 export default function Education() {
     const { cvData, addEducation, removeEducation, updateEducation } = useCVContext();
-    const { t } = useLanguage();
+    const { t, language } = useLanguage();
+    const [showOptional, setShowOptional] = useState<{[key: string]: boolean}>({});
 
     return (
         <div className="animate-fade-in space-y-8">
@@ -26,45 +28,81 @@ export default function Education() {
                         </button>
 
                         <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
-                            <div className="space-y-2">
-                                <label className="text-sm font-medium text-gray-700">{t.steps.education.degree}</label>
-                                <input
-                                    type="text"
-                                    value={edu.degree}
-                                    onChange={(e) => updateEducation(edu.id, 'degree', e.target.value)}
-                                    className="w-full px-4 py-2 rounded-lg border border-gray-200 focus:border-brand-lilac focus:ring-2 focus:ring-brand-lilac/20 outline-none text-black placeholder-gray-400"
-                                />
-                            </div>
-                            <div className="space-y-2">
-                                <label className="text-sm font-medium text-gray-700">{t.steps.education.school}</label>
-                                <input
-                                    type="text"
-                                    value={edu.school}
-                                    onChange={(e) => updateEducation(edu.id, 'school', e.target.value)}
-                                    className="w-full px-4 py-2 rounded-lg border border-gray-200 focus:border-brand-lilac focus:ring-2 focus:ring-brand-lilac/20 outline-none text-black placeholder-gray-400"
-                                />
-                            </div>
-                            <div className="space-y-2">
-                                <label className="text-sm font-medium text-gray-700">Start Date</label>
-                                <input
-                                    type="text"
-                                    value={edu.startDate}
-                                    onChange={(e) => updateEducation(edu.id, 'startDate', e.target.value)}
-                                    className="w-full px-4 py-2 rounded-lg border border-gray-200 focus:border-brand-lilac focus:ring-2 focus:ring-brand-lilac/20 outline-none text-black placeholder-gray-400"
-                                    placeholder="MM/YYYY"
-                                />
-                            </div>
-                            <div className="space-y-2">
-                                <label className="text-sm font-medium text-gray-700">End Date</label>
-                                <input
-                                    type="text"
-                                    value={edu.endDate}
-                                    onChange={(e) => updateEducation(edu.id, 'endDate', e.target.value)}
-                                    className="w-full px-4 py-2 rounded-lg border border-gray-200 focus:border-brand-lilac focus:ring-2 focus:ring-brand-lilac/20 outline-none text-black placeholder-gray-400"
-                                    placeholder="MM/YYYY or Present"
-                                />
-                            </div>
+                            <input
+                                type="text"
+                                value={edu.school}
+                                onChange={(e) => updateEducation(edu.id, 'school', e.target.value)}
+                                className="px-4 py-3 rounded-xl border border-gray-200 focus:border-brand-lilac focus:ring-2 focus:ring-brand-lilac/20 outline-none text-black placeholder-gray-400"
+                                placeholder={language === 'pt' ? 'Nome da instituição' : 'Name of institution'}
+                            />
+                            <input
+                                type="text"
+                                value={edu.location}
+                                onChange={(e) => updateEducation(edu.id, 'location', e.target.value)}
+                                className="px-4 py-3 rounded-xl border border-gray-200 focus:border-brand-lilac focus:ring-2 focus:ring-brand-lilac/20 outline-none text-black placeholder-gray-400"
+                                placeholder="Location"
+                            />
+                            <input
+                                type="text"
+                                value={edu.degree}
+                                onChange={(e) => updateEducation(edu.id, 'degree', e.target.value)}
+                                className="px-4 py-3 rounded-xl border border-gray-200 focus:border-brand-lilac focus:ring-2 focus:ring-brand-lilac/20 outline-none text-black placeholder-gray-400"
+                                placeholder={language === 'pt' ? 'Grau ou curso' : 'Degree or course'}
+                            />
+                            <input
+                                type="text"
+                                value={edu.description || ''}
+                                onChange={(e) => updateEducation(edu.id, 'description', e.target.value)}
+                                className="px-4 py-3 rounded-xl border border-gray-200 focus:border-brand-lilac focus:ring-2 focus:ring-brand-lilac/20 outline-none text-black placeholder-gray-400"
+                                placeholder={language === 'pt' ? 'Curso' : 'Course'}
+                            />
+                            {!edu.hideDates && (
+                                <>
+                                    <input
+                                        type="month"
+                                        value={edu.startDate}
+                                        onChange={(e) => updateEducation(edu.id, 'startDate', e.target.value)}
+                                        className="px-4 py-3 rounded-xl border border-gray-200 focus:border-brand-lilac focus:ring-2 focus:ring-brand-lilac/20 outline-none text-black placeholder-gray-400"
+                                        placeholder={language === 'pt' ? 'Data de início (mês)' : 'Start date (month)'}
+                                    />
+                                    <input
+                                        type="month"
+                                        value={edu.endDate}
+                                        onChange={(e) => updateEducation(edu.id, 'endDate', e.target.value)}
+                                        className="px-4 py-3 rounded-xl border border-gray-200 focus:border-brand-lilac focus:ring-2 focus:ring-brand-lilac/20 outline-none text-black placeholder-gray-400"
+                                        placeholder={language === 'pt' ? 'Data de término (mês)' : 'End date (month)'}
+                                    />
+                                </>
+                            )}
                         </div>
+                        
+                        <div className="mb-4">
+                            <label className="flex items-center gap-2 text-sm text-gray-600 cursor-pointer">
+                                <input
+                                    type="checkbox"
+                                    checked={edu.hideDates || false}
+                                    onChange={(e) => updateEducation(edu.id, 'hideDates', e.target.checked)}
+                                    className="w-4 h-4 text-brand-lilac border-gray-300 rounded focus:ring-brand-lilac"
+                                />
+                                {language === 'pt' ? 'Ocultar datas desta entrada de educação' : 'Hide dates from this education entry'}
+                            </label>
+                        </div>
+                        
+                        <button
+                            onClick={() => setShowOptional({...showOptional, [edu.id]: !showOptional[edu.id]})}
+                            className="text-brand-lilac text-sm font-medium hover:text-brand-lilac-dark transition-colors mb-4"
+                        >
+                            {showOptional[edu.id] ? '- ' : '+ '}{language === 'pt' ? 'Adicionar informações adicionais à educação (opcional)' : 'Add additional information to education (optional)'}
+                        </button>
+                        
+                        {showOptional[edu.id] && (
+                            <textarea
+                                value={edu.extraInfo || ''}
+                                onChange={(e) => updateEducation(edu.id, 'extraInfo', e.target.value)}
+                                className="w-full px-4 py-3 rounded-xl border border-gray-200 focus:border-brand-lilac focus:ring-2 focus:ring-brand-lilac/20 outline-none text-black placeholder-gray-400 min-h-[100px]"
+                                placeholder={language === 'pt' ? 'Informações adicionais...' : 'Additional information...'}
+                            />
+                        )}
                     </div>
                 ))}
 

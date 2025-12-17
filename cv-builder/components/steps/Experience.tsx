@@ -6,7 +6,7 @@ import { useLanguage } from '@/lib/context/LanguageContext';
 
 export default function Experience() {
     const { cvData, addExperience, removeExperience, updateExperience } = useCVContext();
-    const { t } = useLanguage();
+    const { t, language } = useLanguage();
 
     return (
         <div className="animate-fade-in space-y-8">
@@ -26,54 +26,58 @@ export default function Experience() {
                         </button>
 
                         <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
-                            <div className="space-y-2">
-                                <label className="text-sm font-medium text-gray-700">{t.steps.experience.position}</label>
-                                <input
-                                    type="text"
-                                    value={exp.position}
-                                    onChange={(e) => updateExperience(exp.id, 'position', e.target.value)}
-                                    className="w-full px-4 py-2 rounded-lg border border-gray-200 focus:border-brand-lilac focus:ring-2 focus:ring-brand-lilac/20 outline-none text-black placeholder-gray-400"
-                                />
-                            </div>
-                            <div className="space-y-2">
-                                <label className="text-sm font-medium text-gray-700">{t.steps.experience.company}</label>
-                                <input
-                                    type="text"
-                                    value={exp.company}
-                                    onChange={(e) => updateExperience(exp.id, 'company', e.target.value)}
-                                    className="w-full px-4 py-2 rounded-lg border border-gray-200 focus:border-brand-lilac focus:ring-2 focus:ring-brand-lilac/20 outline-none text-black placeholder-gray-400"
-                                />
-                            </div>
-                            <div className="space-y-2">
-                                <label className="text-sm font-medium text-gray-700">Start Date</label>
-                                <input
-                                    type="text"
-                                    value={exp.startDate}
-                                    onChange={(e) => updateExperience(exp.id, 'startDate', e.target.value)}
-                                    className="w-full px-4 py-2 rounded-lg border border-gray-200 focus:border-brand-lilac focus:ring-2 focus:ring-brand-lilac/20 outline-none text-black placeholder-gray-400"
-                                    placeholder="MM/YYYY"
-                                />
-                            </div>
-                            <div className="space-y-2">
-                                <label className="text-sm font-medium text-gray-700">End Date</label>
-                                <input
-                                    type="text"
-                                    value={exp.endDate}
-                                    onChange={(e) => updateExperience(exp.id, 'endDate', e.target.value)}
-                                    className="w-full px-4 py-2 rounded-lg border border-gray-200 focus:border-brand-lilac focus:ring-2 focus:ring-brand-lilac/20 outline-none text-black placeholder-gray-400"
-                                    placeholder="MM/YYYY or Present"
-                                />
-                            </div>
-                        </div>
-
-                        <div className="space-y-2">
-                            <label className="text-sm font-medium text-gray-700">{t.steps.experience.description}</label>
-                            <textarea
-                                value={exp.description}
-                                onChange={(e) => updateExperience(exp.id, 'description', e.target.value)}
-                                className="w-full px-4 py-2 rounded-lg border border-gray-200 focus:border-brand-lilac focus:ring-2 focus:ring-brand-lilac/20 outline-none h-24 resize-none text-black placeholder-gray-400"
+                            <input
+                                type="text"
+                                value={exp.position}
+                                onChange={(e) => updateExperience(exp.id, 'position', e.target.value)}
+                                className="px-4 py-3 rounded-xl border border-gray-200 focus:border-brand-lilac focus:ring-2 focus:ring-brand-lilac/20 outline-none text-black placeholder-gray-400"
+                                placeholder={language === 'pt' ? 'Posição/função' : 'Position/role'}
+                            />
+                            <input
+                                type="text"
+                                value={exp.company}
+                                onChange={(e) => updateExperience(exp.id, 'company', e.target.value)}
+                                className="px-4 py-3 rounded-xl border border-gray-200 focus:border-brand-lilac focus:ring-2 focus:ring-brand-lilac/20 outline-none text-black placeholder-gray-400"
+                                placeholder={language === 'pt' ? 'Nome da empresa' : 'Company or organisation name'}
+                            />
+                            <input
+                                type="text"
+                                value={exp.location}
+                                onChange={(e) => updateExperience(exp.id, 'location', e.target.value)}
+                                className="md:col-span-2 px-4 py-3 rounded-xl border border-gray-200 focus:border-brand-lilac focus:ring-2 focus:ring-brand-lilac/20 outline-none text-black placeholder-gray-400"
+                                placeholder={language === 'pt' ? 'Cidade' : 'Town or city'}
+                            />
+                            <input
+                                type="month"
+                                value={exp.startDate}
+                                onChange={(e) => updateExperience(exp.id, 'startDate', e.target.value)}
+                                className="px-4 py-3 rounded-xl border border-gray-200 focus:border-brand-lilac focus:ring-2 focus:ring-brand-lilac/20 outline-none text-black"
+                            />
+                            <input
+                                type="month"
+                                value={exp.endDate}
+                                onChange={(e) => updateExperience(exp.id, 'endDate', e.target.value)}
+                                className="px-4 py-3 rounded-xl border border-gray-200 focus:border-brand-lilac focus:ring-2 focus:ring-brand-lilac/20 outline-none text-black"
+                                disabled={exp.current}
                             />
                         </div>
+
+                        <div className="flex items-center gap-2 mb-4">
+                            <input
+                                type="checkbox"
+                                checked={exp.current}
+                                onChange={(e) => updateExperience(exp.id, 'current', e.target.checked)}
+                                className="w-4 h-4 text-brand-lilac border-gray-300 rounded focus:ring-brand-lilac"
+                            />
+                            <label className="text-sm text-gray-700">{language === 'pt' ? 'Trabalho aqui atualmente' : 'I currently work here'}</label>
+                        </div>
+
+                        <textarea
+                            value={exp.description}
+                            onChange={(e) => updateExperience(exp.id, 'description', e.target.value)}
+                            className="w-full px-4 py-3 rounded-xl border border-gray-200 focus:border-brand-lilac focus:ring-2 focus:ring-brand-lilac/20 outline-none h-24 resize-none text-black placeholder-gray-400"
+                            placeholder={language === 'pt' ? 'Descrição' : 'Description'}
+                        />
                     </div>
                 ))}
 

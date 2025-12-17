@@ -3,7 +3,7 @@
 import { useState } from 'react';
 import Image from 'next/image';
 import { ArrowRight, CheckCircle2, Download, Layout, Sparkles } from 'lucide-react';
-import StepWizard from '@/components/wizard/StepWizard';
+import BuilderLayout from '@/components/builder/BuilderLayout';
 import Header from '@/components/layout/Header';
 import { useLanguage } from '@/lib/context/LanguageContext';
 
@@ -13,9 +13,9 @@ export default function Home() {
 
   if (showWizard) {
     return (
-      <div className="min-h-screen bg-gray-50 flex flex-col">
+      <div className="h-screen flex flex-col">
         <Header />
-        <StepWizard onBack={() => setShowWizard(false)} />
+        <BuilderLayout />
       </div>
     );
   }
